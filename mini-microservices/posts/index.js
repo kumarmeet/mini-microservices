@@ -35,7 +35,6 @@ app.post('/posts', async (req, res) => {
     id,
     title
   };
-
   res.status(201).json({ message: 'Post created', post: posts[id] });
 });
 
