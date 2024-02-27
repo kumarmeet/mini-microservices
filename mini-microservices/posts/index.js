@@ -44,6 +44,7 @@ app.post('/events', (req, res) => {
 })
 
 app.listen(PORT, () => {
+  console.log("latest updation11119999")
   console.log(`Posts -> Server running on port ${PORT}`);
 });
 
