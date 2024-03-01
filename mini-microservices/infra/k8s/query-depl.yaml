@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-bus-depl
+  name: query-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: event-bus
+      app: query
   template:
     metadata:
       labels:
-        app: event-bus
+        app: query
     spec:
       containers:
-        - name: event-bus
-          image: meetkumar/meet-eventbus
+        - name: query
+          image: meetkumar/meet-query
           resources:
             limits:
               memory: "128Mi"
@@ -24,13 +24,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: event-bus-srv
+  name: query-srv
 spec:
   type: ClusterIP #if do not specify type, it will be ClusterIP by default
   selector:
-    app: event-bus
+    app: query
   ports:
-  - name: event-bus
+  - name: query
     protocol: TCP
-    port: 4005 #node port
-    targetPort: 4005 #container port
+    port: 4002 #node port
+    targetPort: 4002 #container port
