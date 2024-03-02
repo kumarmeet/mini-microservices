@@ -12,18 +12,18 @@ app.use(express.json());
 
 const posts = {}
 
-app.get('/posts', (req, res) => {
-  // Handle GET request for posts
-  res.status(200).json({ message: 'Fetching posts', posts });
-});
+// app.get('/posts', (req, res) => {
+//   // Handle GET request for posts
+//   res.status(200).json({ message: 'Fetching posts', posts });
+// });
 
-app.post('/posts', async (req, res) => {
+app.post('/posts/create', async (req, res) => {
   // Handle POST request to create a new post
   const { title } = req.body;
 
   const id = randomBytes(4).toString('hex');
 
-  await axios.post("http://localhost:4005/events", {
+  await axios.post("http://event-bus-srv:4005/events", {
     type: "PostCreated",
     data: {
       id,
@@ -35,7 +35,6 @@ app.post('/posts', async (req, res) => {
     id,
     title
   };
-
   res.status(201).json({ message: 'Post created', post: posts[id] });
 });
 

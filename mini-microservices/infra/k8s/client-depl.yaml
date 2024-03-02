@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: meetkumar/meet-client
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  type: ClusterIP #if do not specify type, it will be ClusterIP by default
+  selector:
+    app: client
+  ports:
+  - name: client
+    protocol: TCP
+    port: 3000 #node port
+    targetPort: 3000 #container port
